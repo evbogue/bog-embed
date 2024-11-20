@@ -21,32 +21,45 @@ export const embed = (hash, div) => {
       console.log(blob)
       try {
         const opened = await bogbot.open(blob)
-        console.log(opened)
-        if (opened.author === hash && !div.childNodes[0]) {
-          const extr = await parseYaml(opened.text)
-          if (extr && extr.image) {
-            sendHash(extr.image) 
-          }
-          const img = h('img', {id: extr.image, style: "width: 75px; height: 75px; object-fit: cover; float: left; margin-right: .5em;"})
-          const d = h('div', [
-            h('a', {style: 'float: right;', href: 'https://wiredove.net/#' + opened.hash}, [human(new Date(opened.timestamp))]),
-            h('a', {href: 'https://wiredove.net/#' + opened.author}, [
-              img,
-              ' ',
-              extr.name,
-            ]),
-            h('span', {innerHTML: await markdown(extr.body)}),
-            h('div', {style: 'float: right;'}, [
-              h('a', {href: 'https://wiredove.net/#' + opened.author}, ['More on Wiredove →'])    
+        if (opened.author === hash) {
+          sendHash(opened.data)
+          if (opened.author === hash && !div.childNodes[0]) {
+            const img = h('img', {id: 'image', style: "width: 75px; height: 75px; object-fit: cover; float: left; margin-right: .5em;"})
+            const d = h('div', [
+              h('a', {style: 'float: right;', href: 'https://wiredove.net/#' + opened.hash}, [human(new Date(opened.timestamp))]),
+              h('a', {href: 'https://wiredove.net/#' + opened.author}, [
+                img,
+                ' ',
+                h('span', {id: 'name'}),
+              ]),
+              h('span', {id: 'content'}),
+              h('div', {style: 'float: right;'}, [
+                h('a', {href: 'https://wiredove.net/#' + opened.author}, ['More on Wiredove →'])    
+              ])
             ])
-          ])
-          div.appendChild(d)
+            div.appendChild(d)
+          }
         }
       } catch (err) {}
     try {
       const blobhash = await bogbot.make(blob)
-      const got = document.getElementById(blobhash)
-      got.src = blob
+      try { 
+        const y = await parseYaml(blob)
+        console.log(y)
+        if (y.body && y.name && y.image) {
+          const getBody = document.getElementById('content')
+          getBody.innerHTML = await markdown(y.body)
+          const getName = document.getElementById('name')
+          getName.textContent = y.name
+          const getImage = document.getElementById('image')
+          image.id = y.image
+          sendHash(y.image)
+        }
+      } catch (err) { }
+      try { 
+        const get = document.getElementById(blobhash) 
+        get.src = blob
+      } catch (err) {}
     } catch (err) {}
     })
   }
