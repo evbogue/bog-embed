@@ -24,7 +24,9 @@ export const embed = (hash, div) => {
         console.log(opened)
         if (opened.author === hash && !div.childNodes[0]) {
           const extr = await parseYaml(opened.text)
-          sendHash(extr.image) 
+          try {
+            sendHash(extr.image) 
+          } catch (err) {}
           const img = h('img', {id: extr.image, style: "width: 75px; height: 75px; object-fit: cover; float: left; margin-right: .5em;"})
           const d = h('div', [
             h('a', {style: 'float: right;', href: 'https://wiredove.net/#' + opened.hash}, [human(new Date(opened.timestamp))]),
@@ -40,7 +42,7 @@ export const embed = (hash, div) => {
           ])
           div.appendChild(d)
         }
-      } catch (err) { console.log(err)}
+      } catch (err) {}
     try {
       const blobhash = await bogbot.make(blob)
       const got = document.getElementById(blobhash)
