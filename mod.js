@@ -1,7 +1,7 @@
-import { joinRoom } from 'https://esm.sh/gh/evbogue/bogbookv4@6d2990fde7/lib/trystero-torrent.min.js'
-import { h } from 'https://esm.sh/gh/evbogue/bogbookv4@6d2990fde7/lib/h.js'
-import { bogbot } from 'https://esm.sh/gh/evbogue/bogbookv4@6d2990fde7/bogbot.js'
-import { markdown } from 'https://esm.sh/gh/evbogue/bogbookv4@908853d675/markdown.js'
+import { joinRoom } from 'https://esm.sh/gh/evbogue/bogbookv4@02f96a104e/lib/trystero-torrent.min.js'
+import { h } from 'https://esm.sh/gh/evbogue/bogbookv4@02f96a104e/lib/h.js'
+import { bogbot } from 'https://esm.sh/gh/evbogue/bogbookv4@02f96a104e/bogbot.js'
+import { markdown } from 'https://esm.sh/gh/evbogue/bogbookv4@02f96a104e/markdown.js'
 import { parseYaml } from 'https://esm.sh/gh/evbogue/wiredove@11d1eea293/yaml.js'
 import { human } from 'https://esm.sh/gh/evbogue/wiredove@11d1eea293/lib/human.js'
 
