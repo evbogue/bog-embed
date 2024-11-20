@@ -24,9 +24,9 @@ export const embed = (hash, div) => {
         console.log(opened)
         if (opened.author === hash && !div.childNodes[0]) {
           const extr = await parseYaml(opened.text)
-          try {
+          if (extr && extr.image)
             sendHash(extr.image) 
-          } catch (err) {}
+          }
           const img = h('img', {id: extr.image, style: "width: 75px; height: 75px; object-fit: cover; float: left; margin-right: .5em;"})
           const d = h('div', [
             h('a', {style: 'float: right;', href: 'https://wiredove.net/#' + opened.hash}, [human(new Date(opened.timestamp))]),
