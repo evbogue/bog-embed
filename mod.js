@@ -25,7 +25,7 @@ export const embed = (hash, div) => {
         if (opened.author === hash && !div.childNodes[0]) {
           const extr = await parseYaml(opened.text)
           sendHash(extr.image) 
-          const img = h('img', {id: extr.image, style: "width: 150px; height: 150px; object-fit: cover; float: left; margin-right: .5em;"})
+          const img = h('img', {id: extr.image, style: "width: 75px; height: 75px; object-fit: cover; float: left; margin-right: .5em;"})
           const d = h('div', [
             h('a', {style: 'float: right;', href: 'https://wiredove.net/#' + opened.hash}, [human(new Date(opened.timestamp))]),
             h('a', {href: 'https://wiredove.net/#' + opened.author}, [
@@ -33,10 +33,12 @@ export const embed = (hash, div) => {
               ' ',
               extr.name,
             ]),
-            h('span', {innerHTML: await markdown(extr.body)})    
+            h('span', {innerHTML: await markdown(extr.body)}),
+            h('div', {style: 'float: right;'}, [
+              h('a', {href: 'https://wiredove.net/#' + opened.author}, ['More on Wiredove →'])    
+            ])
           ])
           div.appendChild(d)
-          div.appendChild(h('div', [JSON.stringify(extr)]))
         }
       } catch (err) { console.log(err)}
     try {
