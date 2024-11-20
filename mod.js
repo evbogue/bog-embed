@@ -24,7 +24,7 @@ export const embed = (hash, div) => {
         console.log(opened)
         if (opened.author === hash && !div.childNodes[0]) {
           const extr = await parseYaml(opened.text)
-          if (extr && extr.image)
+          if (extr && extr.image) {
             sendHash(extr.image) 
           }
           const img = h('img', {id: extr.image, style: "width: 75px; height: 75px; object-fit: cover; float: left; margin-right: .5em;"})
